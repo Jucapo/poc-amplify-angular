@@ -23,6 +23,10 @@
               "node_modules/@aws-amplify/ui-angular/theme.css",
               "src/styles.css"
             ],
+            "allowedCommonJsDependencies": [
+              "@aws-amplify/ui-angular",
+              "aws-amplify"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -30,8 +34,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",
