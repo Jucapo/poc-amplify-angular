@@ -10,7 +10,8 @@
     "test": "ng test",
     "sandbox": "npx amplify sandbox",
     "deploy": "npx amplify deploy",
-    "generate-types": "npx amplify codegen types"
+    "generate-types": "npx amplify codegen types",
+    "postamplify": "git add src/amplify_outputs.json"
   },
   "private": true,
   "dependencies": {
