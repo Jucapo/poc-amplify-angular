@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "amplify": "amplify",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -21,9 +22,10 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "@aws-amplify/cli": "^13.0.0",
     "@aws-amplify/data-schema": "^1.20.2",
     "@aws-amplify/ui-angular": "^5.0.40",
-    "aws-amplify": "^6.6.6",
+    "aws-amplify": "^6.14.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
