@@ -7,6 +7,8 @@ import outputs from './amplify_outputs.json';
 // Configuración CORRECTA para Amplify Gen 2:
 Amplify.configure(outputs); // Solo esto es necesario
 
+console.log('Current Auth Config:', Amplify.getConfig().Auth);
+
 bootstrapApplication(AppComponent, appConfig).catch((err) =>
   console.error(err),
 );

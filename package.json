@@ -5,13 +5,14 @@
     "ng": "ng",
     "amplify": "amplify",
     "start": "ng serve",
-    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "sandbox": "npx amplify sandbox",
     "deploy": "npx amplify deploy",
     "generate-types": "npx amplify codegen types",
-    "postamplify": "git add src/amplify_outputs.json"
+    "postamplify": "git add src/amplify_outputs.json",
+    "prebuild": "aws amplify get-backend-environment --app-id d1ggpje0efmw04 --environment-name main --query 'backendEnvironment.amplifyMeta' > src/amplify_outputs.json || true",
+    "build": "npm run prebuild && ng build"
   },
   "private": true,
   "dependencies": {
