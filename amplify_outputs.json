@@ -1,19 +1,13 @@
 {
   "auth": {
-    "user_pool_id": "sa-east-1_IpaBar4sG",
-    "aws_region": "sa-east-1",
-    "user_pool_client_id": "1qjrup8088r33s6daqd1kv966a",
-    "identity_pool_id": "sa-east-1:688fee49-227e-435a-9e85-991a8623ec09",
+    "user_pool_id": "us-east-1_MBb6bu3Y7",
+    "aws_region": "us-east-1",
+    "user_pool_client_id": "1rj7b7j2mifa8bbbr4pc1ptka5",
+    "identity_pool_id": "us-east-1:2e61131b-1d6f-4714-9c8d-63a871e30a09",
     "mfa_methods": [],
-    "standard_required_attributes": [
-      "email"
-    ],
-    "username_attributes": [
-      "email"
-    ],
-    "user_verification_types": [
-      "email"
-    ],
+    "standard_required_attributes": ["email"],
+    "username_attributes": ["email"],
+    "user_verification_types": ["email"],
     "groups": [],
     "mfa_configuration": "NONE",
     "password_policy": {
@@ -26,12 +20,10 @@
     "unauthenticated_identities_enabled": true
   },
   "data": {
-    "url": "https://zcbxn2ewnfcftd7y7v7dtpz7k4.appsync-api.sa-east-1.amazonaws.com/graphql",
-    "aws_region": "sa-east-1",
+    "url": "https://coqvx2djnjaxjhnv4i6racg4zm.appsync-api.us-east-1.amazonaws.com/graphql",
+    "aws_region": "us-east-1",
     "default_authorization_type": "AMAZON_COGNITO_USER_POOLS",
-    "authorization_types": [
-      "AWS_IAM"
-    ],
+    "authorization_types": ["AWS_IAM"],
     "model_introspection": {
       "version": 1,
       "models": {
@@ -89,24 +81,14 @@
                 "rules": [
                   {
                     "allow": "private",
-                    "operations": [
-                      "create",
-                      "update",
-                      "delete",
-                      "read"
-                    ]
+                    "operations": ["create", "update", "delete", "read"]
                   },
                   {
                     "provider": "userPools",
                     "ownerField": "email",
                     "allow": "owner",
                     "identityClaim": "cognito:username",
-                    "operations": [
-                      "create",
-                      "update",
-                      "delete",
-                      "read"
-                    ]
+                    "operations": ["create", "update", "delete", "read"]
                   }
                 ]
               }
