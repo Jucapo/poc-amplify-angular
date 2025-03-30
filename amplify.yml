@@ -1,25 +1,70 @@
 version: 1
+#############################
+# Configuración del Backend #
+#############################
 backend:
   phases:
     preBuild:
       commands:
-        - npm install -g @aws-amplify/backend-cli@latest
-        - npm install aws-amplify @aws-amplify/ui-angular --save
+        # 1. Limpieza de instalaciones previas
+        - rm -f $(npm root -g)/@aws-amplify/cli/bin/amplify 2> /dev/null || true
+
+        # 2. Instalación segura de dependencias globales
+        - npm install -g --force @aws-amplify/backend-cli@latest cross-env
+
+        # 3. Verificación del entorno
+        - echo "Versión de Node: $(node -v)"
+        - echo "Versión de npm: $(npm -v)"
+        - echo "App ID: ${AMPLIFY_APP_ID}"
+        - echo "Branch: ${AMPLIFY_BRANCH}"
+
     build:
       commands:
+        # 1. Generar outputs de Amplify
         - npx ampx generate outputs
+
+        # 2. Despliegue del backend (con variables de entorno)
+        - npx cross-env ampx deploy --app-id ${AMPLIFY_APP_ID} --branch ${AMPLIFY_BRANCH}
+
+##############################
+# Configuración del Frontend #
+##############################
 frontend:
   phases:
     preBuild:
       commands:
-        - npm ci
+        # 1. Instalación óptima de dependencias
+        - npm ci --prefer-offline --cache .npm
+
+        # 2. Verificación Angular
+        - npx ng version
+
     build:
       commands:
-        - npm run build
+        # Build de producción con configuración optimizada
+        - npm run build-prod
+
   artifacts:
-    baseDirectory: dist/your-app-name
+    # Ajustar según tu angular.json
+    baseDirectory: dist/your-app-name/browser
     files:
       - "**/*"
+
   cache:
     paths:
       - node_modules/**/*
+      - .npm/**/*
+      - .angular/cache/**/*
+
+#################################
+# Variables de Entorno Globales #
+#################################
+environmentVariables:
+  # Amplify
+  AMPLIFY_APP_ID: $AMPLIFY_APP_ID # Se hereda de la configuración de Amplify
+  AMPLIFY_BRANCH: $AMPLIFY_BRANCH # Se hereda de la configuración de Amplify
+
+  # Node/Angular
+  NODE_ENV: production
+  NODE_OPTIONS: --max-old-space-size=4096
+  NG_BUILD_OPTS: --configuration=production
