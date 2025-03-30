@@ -1,6 +1,15 @@
 version: 1
 backend:
   phases:
+    preBuild:
+      commands:
+        - nvm install 18.19.0
+        - nvm use 18.19.0
+        - npm install -g npm@latest
+
+        # Limpieza de cache y reinstalación segura
+        - rm -rf node_modules package-lock.json
+        - npm install --legacy-peer-deps
     build:
       commands:
         - npm ci --cache .npm --prefer-offline
@@ -9,10 +18,8 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm install 18.19.0
         - nvm use 18.19.0
         - npm ci
-        - npx ng version
     build:
       commands:
         - npx ng build --configuration=production
