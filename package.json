@@ -6,14 +6,12 @@
     "amplify": "amplify",
     "start": "ng serve",
     "build": "ng build",
-    "build-prod": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "sandbox": "npx amplify sandbox",
-    "deploy": "npx ampx deploy --app-id $AMPLIFY_APP_ID --branch $AMPLIFY_BRANCH",
+    "deploy": "npx amplify deploy",
     "generate-types": "npx amplify codegen types",
-    "postamplify": "git add src/amplify_outputs.json",
-    "generate": "npx ampx generate"
+    "postamplify": "git add src/amplify_outputs.json"
   },
   "private": true,
   "dependencies": {
