@@ -8,7 +8,12 @@ backend:
         - npm ci
     build:
       commands:
-        - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+        # Configurar para no usar Docker
+        - export AMPLIFY_DISABLE_DOCKER=true
+        # Generar outputs sin Docker
+        - npx ampx generate --no-docker
+        # Desplegar usando el método alternativo
+        - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --yes --no-docker
 
 frontend:
   phases:
