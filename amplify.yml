@@ -5,7 +5,6 @@ backend:
       commands:
         - nvm install 18.19.0
         - nvm use 18.19.0
-        - npm install -g npm@latest
 
         # Limpieza de cache y reinstalación segura
         - rm -rf node_modules package-lock.json
