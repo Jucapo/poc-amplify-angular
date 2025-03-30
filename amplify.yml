@@ -1,35 +1,16 @@
 version: 1
-backend:
-  phases:
-    preBuild:
-      commands:
-        - nvm install 18.19.0
-        - nvm use 18.19.0
-        - npm ci
-    build:
-      commands:
-        # Configurar para no usar Docker
-        - export AMPLIFY_DISABLE_DOCKER=true
-        # Generar outputs sin Docker
-        - npx ampx generate --no-docker
-        # Desplegar usando el método alternativo
-        - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --yes --no-docker
-
 frontend:
   phases:
     preBuild:
       commands:
-        - nvm use 18.19.0
         - npm ci
     build:
       commands:
         - npx ng build --configuration=production
-
   artifacts:
     baseDirectory: dist/amplify-angular-template/browser
     files:
       - "**/*"
-
   cache:
     paths:
       - .npm/**/*
