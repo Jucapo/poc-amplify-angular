@@ -9,14 +9,14 @@
     "generate-types": "npx amplify codegen types",
     "postamplify": "git add src/amplify_outputs.json",
     "prebuild": "aws amplify get-backend-environment --app-id d1ggpje0efmw04 --environment-name main --query 'backendEnvironment.amplifyMeta' > src/amplify_outputs.json || true",
-    "build-prod": "ng build --configuration=production",
-    "generate": "ampx generate",
     "deploy": "ampx deploy --app-id $AMPLIFY_APP_ID --branch $AMPLIFY_BRANCH",
     "sandbox": "ampx sandbox",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "npm run generate"
+    "postinstall": "npm run generate",
+    "generate": "ampx generate outputs",
+    "build": "npm run generate && ng build --configuration=production"
   },
   "private": true,
   "dependencies": {
