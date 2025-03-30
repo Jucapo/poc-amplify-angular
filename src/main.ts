@@ -5,7 +5,9 @@ import { Amplify } from 'aws-amplify';
 import outputs from './amplify_outputs.json';
 
 // Configuración CORRECTA para Amplify Gen 2:
-Amplify.configure(outputs); // Solo esto es necesario
+import { environment } from '../src/environments/environment';
+
+Amplify.configure(environment.amplifyConfig);
 
 console.log('Current Auth Config:', Amplify.getConfig().Auth);
 
