@@ -9,10 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "sandbox": "npx amplify sandbox",
-    "deploy": "npx amplify deploy",
-    "generate-types": "npx amplify codegen types",
-    "generate-models": "npx ampx generate graphql-client-code --out src/app/models",
-    "postamplify": "git add src/amplify_outputs.json"
+    "generate-models": "npx ampx generate graphql-client-code --out src/app/models"
   },
   "private": true,
   "dependencies": {
