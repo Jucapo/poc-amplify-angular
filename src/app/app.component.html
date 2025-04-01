@@ -1,4 +1,15 @@
 <amplify-authenticator>
+  <!-- Logo sobre la caja de credenciales -->
+  <ng-template amplifySlot="header">
+    <div class="auth-logo-container">
+      <img
+        src="assets/Logo.svg"
+        alt="Logo de la aplicación"
+        class="auth-logo"
+      />
+    </div>
+  </ng-template>
+
   <ng-template
     amplifySlot="authenticated"
     let-user="user"
@@ -6,6 +17,12 @@
   >
     <div class="app-layout">
       <header class="app-header">
+        <!-- Logo en el encabezado -->
+        <img
+          src="assets/Logo-1.svg"
+          alt="Logo de la aplicación"
+          class="header-logo"
+        />
         <h1 class="app-title">POC Amplify</h1>
         <button
           class="sign-out-button"

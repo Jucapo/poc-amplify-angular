@@ -1,8 +1,8 @@
 .dashboard-container {
-  padding: 24px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   background-color: #f8f9fa;
   min-height: 100vh;
 }
@@ -22,65 +22,120 @@
   font-size: 1.5rem;
 }
 
+/* ----------------- CONTROLES ----------------- */
 .controls {
   display: flex;
-  gap: 16px;
-  align-items: center;
+  gap: 12px;
+  align-items: flex-end; /* Alinea por la parte inferior */
   flex-wrap: wrap;
-  margin-bottom: 16px;
 }
 
-/* Estilos mejorados para los campos de formulario */
+/* Elimina el espacio del subscript wrapper */
+.mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+/* Campos de formulario - versión móvil (por defecto) */
 .controls mat-form-field {
-  width: 220px;
+  width: 100%;
+  margin-bottom: 0; /* Eliminamos el margen inferior */
 }
 
 .controls .mat-mdc-text-field-wrapper {
-  background-color: white;
-  height: 48px;
+  background-color: white !important;
+  height: 56px; /* Altura consistente */
   border-radius: 4px;
 }
 
-.controls .mat-mdc-outlined-input {
-  font-size: 14px;
-}
-
 .controls .mat-mdc-form-field-infix {
-  padding: 12px 0 8px 0;
-  min-height: auto;
-}
-
-.controls .mat-mdc-form-field-subscript-wrapper {
-  display: none;
-}
-
-.controls .mdc-notched-outline__notch {
-  border-right: none;
+  padding: 12px 0 8px 0 !important;
+  min-height: auto !important;
 }
 
 .controls .mat-mdc-floating-label {
-  top: 24px;
+  top: 24px !important;
 }
 
-/* Estilos para el botón */
+/* Botón de actualizar */
 .controls .mat-mdc-raised-button {
-  height: 48px;
-  padding: 0 16px;
+  height: 56px; /* Misma altura que los campos */
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 0;
 }
 
-/* Contenedor de la tabla */
+/* ----------------- TABLA ----------------- */
 .table-container {
+  margin-top: 16px;
   position: relative;
-  min-height: 300px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
+/* Wrapper para el scroll */
+.table-wrapper {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 300px);
+  min-height: 200px;
+}
+
+/* Estilos de tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.mat-mdc-header-row {
+  background-color: #3f51b5;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.mat-mdc-header-cell {
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.mat-mdc-row:not(.mat-mdc-header-row) {
+  height: 52px;
+}
+
+.mat-mdc-row:not(.mat-mdc-header-row):hover {
+  background-color: #f5f5f5;
+}
+
+/* Acciones en celdas */
+.mat-mdc-cell .mat-icon-button {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+}
+
+/* Paginador */
+.mat-mdc-paginator {
+  border-top: 1px solid #e0e0e0;
+  background-color: white;
+}
+
+/* ----------------- ESTADOS ESPECIALES ----------------- */
 /* Loading overlay */
 .loading-overlay {
   position: absolute;
@@ -118,122 +173,30 @@
   font-size: 16px;
 }
 
-/* Estilos de tabla */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.mat-mdc-header-row {
-  background-color: #3f51b5;
-  height: 56px;
-}
-
-.mat-mdc-header-cell {
-  color: white;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.mat-mdc-cell,
-.mat-mdc-header-cell {
-  padding: 12px 16px;
-  border-bottom: 1px solid #e0e0e0;
-  text-align: left;
-}
-
-.mat-mdc-row:not(.mat-mdc-header-row) {
-  height: 52px;
-}
-
-.mat-mdc-row:not(.mat-mdc-header-row):hover {
-  background-color: #f5f5f5;
-}
-
-/* Acciones en celdas */
-.mat-mdc-cell .mat-icon-button {
-  width: 36px;
-  height: 36px;
-  line-height: 36px;
-  margin: 0 4px;
-}
-
-.mat-mdc-cell .mat-icon {
-  font-size: 20px;
-}
-
-/* Paginador */
-.mat-mdc-paginator {
-  display: flex;
-  justify-content: flex-end;
-  padding: 12px 24px;
-  background-color: white;
-  border-top: 1px solid #e0e0e0;
-  border-radius: 0 0 8px 8px;
-}
-
-.mat-mdc-paginator-container {
-  justify-content: flex-end;
-}
-
-.mat-mdc-paginator-page-size {
-  margin-right: auto;
-}
-
-.mat-mdc-paginator-range-actions {
-  display: flex;
-  align-items: center;
-}
-
-.mat-mdc-paginator-range-label {
-  margin: 0 16px;
-}
-
-/* Estilos específicos para los campos */
-.controls .mdc-text-field {
-  padding: 0 12px;
-  background-color: white;
-}
-
-.controls .mdc-text-field--outlined .mdc-notched-outline {
-  border-width: 1px;
-  border-color: rgba(0, 0, 0, 0.12);
-}
-
-.controls
-  .mdc-text-field--outlined:not(.mdc-text-field--disabled):hover
-  .mdc-notched-outline {
-  border-color: rgba(0, 0, 0, 0.24);
-}
-
-.controls
-  .mdc-text-field--outlined.mdc-text-field--focused
-  .mdc-notched-outline {
-  border-color: #3f51b5;
-  border-width: 2px;
-}
-
-.controls .mat-icon.mat-mdc-form-field-icon-suffix {
-  color: rgba(0, 0, 0, 0.54);
-  padding: 0;
-}
-
-/* Responsive */
+/* ----------------- RESPONSIVE ----------------- */
 @media (max-width: 768px) {
+  .dashboard-container {
+    padding: 12px;
+  }
+
   .dashboard-header {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
   }
 
   .controls {
     flex-direction: column;
+    align-items: stretch;
     gap: 12px;
   }
 
   .controls mat-form-field,
   .controls .mat-mdc-raised-button {
     width: 100%;
+  }
+
+  .table-wrapper {
+    max-height: calc(100vh - 350px);
   }
 
   .mat-mdc-cell,
@@ -246,21 +209,42 @@ table {
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    padding: 12px;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Ajustes específicos para desktop/tablet */
+  .controls {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 16px;
   }
 
-  .mat-mdc-paginator-container {
-    flex-direction: column-reverse;
-    gap: 8px;
+  .controls mat-form-field {
+    width: 220px; /* Ancho fijo para desktop */
+    margin-bottom: 0;
   }
 
-  .mat-mdc-paginator-page-size {
-    margin-right: 0;
-    width: 100%;
+  /* Estilos para el select */
+  .mat-mdc-select-value {
+    font-size: 14px;
   }
 
-  .mat-mdc-paginator-range-actions {
-    width: 100%;
-    justify-content: center;
+  /* Estilos para el input */
+  .mat-mdc-input-element {
+    font-size: 14px;
   }
+}
+
+/* ----------------- ESTILOS ADICIONALES PARA MATERIAL ----------------- */
+/* Estilo cuando el campo está enfocado */
+.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline {
+  border-color: #3f51b5 !important;
+  border-width: 2px !important;
+}
+
+/* Estilo para el icono de búsqueda */
+.mat-icon.mat-mdc-form-field-icon-suffix {
+  color: rgba(0, 0, 0, 0.54);
+  padding: 0;
 }
