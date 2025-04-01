@@ -182,18 +182,7 @@ export class UserDataService {
           createdAt: dataResult.data[0].createdAt ?? new Date().toISOString(),
           updatedAt: dataResult.data[0].updatedAt ?? new Date().toISOString(),
         }
-      : await this.saveUserData({
-          email,
-          firstName: '',
-          lastName: '',
-          phone: '',
-          address: '',
-          birthDate: '',
-          gender: '',
-          occupation: '',
-          createdAt: dataResult?.data[0]?.createdAt ?? new Date().toISOString(),
-          updatedAt: dataResult?.data[0]?.updatedAt ?? new Date().toISOString(),
-        });
+      : await this.saveUserData(this.createEmptyUserData(email));
     console.log('🚀 ~ UserDataService ~ getCompleteUserProfile ~ data:', data);
     return {
       profile,
@@ -201,42 +190,40 @@ export class UserDataService {
     };
   }
 
-  async getAllUsers(): Promise<{ profile: UserProfile; data: UserData }[]> {
-    const profileResult = await client.models.UserProfile.list();
+  async getAllUsers(): Promise<UserAdminProfileWithUsersData | null> {
+    const email = await this.authService.getCurrentUserEmail();
+    if (!email) return null;
+
+    const profilesResult = await client.models.UserProfile.list();
+
     const dataResult = await client.models.UserData.list();
 
-    const profiles = profileResult.data;
-    const dataList = dataResult.data;
-
-    return profiles.map((profile) => {
-      const userData = dataList.find((d) => d?.email === profile?.email);
-      return {
-        profile: {
+    return {
+      profiles:
+        profilesResult.data.map((userData) => ({
           __typename: 'UserProfile',
-          id: profile.id,
-          email: profile.email ?? '',
-          role: profile.role ?? 'user',
-          createdAt: profile.createdAt ?? new Date().toISOString(),
-          updatedAt: profile.updatedAt ?? new Date().toISOString(),
-        },
-        data: userData
-          ? {
-              __typename: 'UserData',
-              id: userData.id,
-              email: userData.email ?? '',
-              firstName: userData.firstName ?? '',
-              lastName: userData.lastName ?? '',
-              phone: userData.phone ?? '',
-              address: userData.address ?? '',
-              birthDate: userData.birthDate ?? '',
-              gender: userData.gender ?? '',
-              occupation: userData.occupation ?? '',
-              createdAt: userData.createdAt ?? new Date().toISOString(),
-              updatedAt: userData.updatedAt ?? new Date().toISOString(),
-            }
-          : this.createEmptyUserData(profile.email ?? ''),
-      };
-    });
+          id: userData.id,
+          email: userData.email,
+          role: userData.role ?? 'user',
+          createdAt: userData.createdAt ?? new Date().toISOString(),
+          updatedAt: userData.updatedAt ?? new Date().toISOString(),
+        })) ?? [],
+      data:
+        dataResult.data.map((userData) => ({
+          __typename: 'UserData',
+          id: userData.id,
+          email: userData.email ?? '',
+          firstName: userData.firstName ?? '',
+          lastName: userData.lastName ?? '',
+          phone: userData.phone ?? '',
+          address: userData.address ?? '',
+          birthDate: userData.birthDate ?? '',
+          gender: userData.gender ?? '',
+          occupation: userData.occupation ?? '',
+          createdAt: userData.createdAt ?? new Date().toISOString(),
+          updatedAt: userData.updatedAt ?? new Date().toISOString(),
+        })) ?? [],
+    };
   }
 
   private createEmptyUserData(email: string): UserData {
@@ -255,4 +242,9 @@ export class UserDataService {
       updatedAt: new Date().toISOString(),
     };
   }
+}
+
+export interface UserAdminProfileWithUsersData {
+  profiles: UserProfile[];
+  data: UserData[];
 }
