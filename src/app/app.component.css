@@ -26,3 +26,25 @@ button {
 button:hover {
   background-color: #ff5252;
 }
+
+.profile-container,
+.admin-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
