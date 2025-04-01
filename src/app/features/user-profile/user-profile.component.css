@@ -35,8 +35,9 @@
 
 .form-section legend {
   color: #2c3e50;
-  font-weight: 500;
+  font-weight: 700;
   padding: 0 0.5rem;
+  text-align: center;
 }
 
 /* Filas de formulario */
@@ -97,7 +98,6 @@ button[type="submit"] {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 1rem;
   align-self: flex-end;
   display: flex;
   align-items: center;

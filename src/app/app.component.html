@@ -4,12 +4,19 @@
     let-user="user"
     let-signOut="signOut"
   >
-    <div class="app-container">
-      <header>
-        <h1>Mi Aplicación</h1>
-        <button (click)="signOut()">Cerrar Sesión</button>
+    <div class="app-layout">
+      <header class="app-header">
+        <h1 class="app-title">Mi Aplicación</h1>
+        <button
+          class="sign-out-button"
+          (click)="signOut()"
+          matTooltip="Cerrar sesión"
+        >
+          <mat-icon class="sign-out-icon">logout</mat-icon>
+        </button>
       </header>
-      <main>
+
+      <main class="app-content">
         <router-outlet></router-outlet>
       </main>
     </div>

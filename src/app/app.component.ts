@@ -6,11 +6,17 @@ import {
   AuthenticatorService,
 } from '@aws-amplify/ui-angular';
 import { AuthService } from './core/services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, AmplifyAuthenticatorModule],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    AmplifyAuthenticatorModule,
+    MatIconModule,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
