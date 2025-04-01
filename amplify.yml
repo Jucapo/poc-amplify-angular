@@ -3,6 +3,8 @@ backend:
   phases:
     build:
       commands:
+        - nvm install 20
+        - nvm use 20
         - npm ci --cache .npm --prefer-offline
         - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
 frontend:
@@ -12,6 +14,8 @@ frontend:
         - npx ng version
     build:
       commands:
+        - nvm install 20
+        - nvm use 20
         - npx ng build --configuration=production
   artifacts:
     baseDirectory: dist/amplify-angular-template/browser
