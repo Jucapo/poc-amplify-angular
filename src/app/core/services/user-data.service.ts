@@ -103,37 +103,31 @@ export class UserDataService {
     id: string,
     updatedData: UpdateUserDataInput,
   ): Promise<UserData> {
+    // First check if the item exists
+    const existingItem = await client.models.UserData.get({ id });
+    if (!existingItem.data) {
+      throw new Error(`UserData with id ${id} not found`);
+    }
+
+    // Then proceed with update
     const input = {
       id,
-      email: updatedData.email ?? '',
-      firstName: updatedData.firstName ?? '',
-      lastName: updatedData.lastName ?? '',
-      phone: updatedData.phone ?? '',
-      address: updatedData.address ?? '',
-      birthDate: updatedData.birthDate ?? '',
-      gender: updatedData.gender ?? '',
-      occupation: updatedData.occupation ?? '',
-      createdAt: new Date().toISOString(),
+      email: updatedData.email ?? existingItem.data.email ?? '',
+      firstName: updatedData.firstName ?? existingItem.data.firstName ?? '',
+      lastName: updatedData.lastName ?? existingItem.data.lastName ?? '',
+      phone: updatedData.phone ?? existingItem.data.phone ?? '',
+      address: updatedData.address ?? existingItem.data.address ?? '',
+      birthDate: updatedData.birthDate ?? existingItem.data.birthDate ?? '',
+      gender: updatedData.gender ?? existingItem.data.gender ?? '',
+      occupation: updatedData.occupation ?? existingItem.data.occupation ?? '',
+      createdAt: existingItem.data.createdAt ?? new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
 
     const { data, errors } = await client.models.UserData.update(input);
     if (errors) throw new Error(errors.map((e) => e.message).join(', '));
 
-    return {
-      __typename: 'UserData',
-      id: data!.id,
-      email: data!.email ?? '',
-      firstName: data!.firstName ?? '',
-      lastName: data!.lastName ?? '',
-      phone: data!.phone ?? '',
-      address: data!.address ?? '',
-      birthDate: data!.birthDate ?? '',
-      gender: data!.gender ?? '',
-      occupation: data!.occupation ?? '',
-      createdAt: data!.createdAt ?? new Date().toISOString(),
-      updatedAt: data!.updatedAt ?? new Date().toISOString(),
-    };
+    return data as UserData;
   }
 
   async getCompleteUserProfile(): Promise<{
@@ -190,13 +184,13 @@ export class UserDataService {
         }
       : await this.saveUserData({
           email,
-          firstName: 'juan',
-          lastName: 'posso',
-          phone: '3155418508',
-          address: 'xxxx',
-          birthDate: '05/12/1994',
-          gender: 'Masculino',
-          occupation: 'dev',
+          firstName: '',
+          lastName: '',
+          phone: '',
+          address: '',
+          birthDate: '',
+          gender: '',
+          occupation: '',
           createdAt: dataResult?.data[0]?.createdAt ?? new Date().toISOString(),
           updatedAt: dataResult?.data[0]?.updatedAt ?? new Date().toISOString(),
         });

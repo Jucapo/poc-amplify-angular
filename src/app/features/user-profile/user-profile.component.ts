@@ -48,7 +48,12 @@ export class UserProfileComponent {
     this.loadUserData();
   }
 
+  // Agrega una nueva signal para controlar la carga inicial
+  loadingInitialData = signal(false);
+
   async loadUserData() {
+    this.loadingInitialData.set(true); // Activar loading al inicio
+
     try {
       const result = await this.userDataService.getCompleteUserProfile();
 
@@ -59,12 +64,21 @@ export class UserProfileComponent {
 
       const { profile, data } = result;
 
-      console.log('🟢 Perfil:', profile);
-      console.log('🟢 Datos:', data);
-
-      // aquí puedes continuar asignando a this.user o similar...
+      this.profileForm.patchValue({
+        id: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phone: data.phone,
+        address: data.address,
+        birthDate: data.birthDate,
+        gender: data.gender,
+        occupation: data.occupation,
+      });
     } catch (error) {
       console.error('❌ Error al cargar datos del usuario:', error);
+      this.showError('Error al cargar el perfil');
+    } finally {
+      this.loadingInitialData.set(false); // Desactivar loading al final
     }
   }
 
@@ -74,32 +88,47 @@ export class UserProfileComponent {
       return;
     }
 
-    const email = await this.authService.getCurrentUserEmail();
-    if (!email) {
-      this.showError('Usuario no autenticado');
-      return;
-    }
-
-    const formValue = this.profileForm.value;
-    const input: UpdateUserDataInput = {
-      ...formValue,
-      email,
-    };
+    this.loading.set(true); // Activar el loading
 
     try {
+      const email = await this.authService.getCurrentUserEmail();
+      if (!email) {
+        this.showError('Usuario no autenticado');
+        return;
+      }
+
+      const formValue = this.profileForm.value;
+      const input: UpdateUserDataInput = {
+        ...formValue,
+        email,
+      };
+
       await this.userDataService.updateUserData(formValue.id, input);
       this.showSuccess('Perfil actualizado correctamente');
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('🚀 ~ onSubmit ~ error:', error);
-      this.showError('Error actualizando el perfil');
+      // Manejo de errores existente...
+    } finally {
+      this.loading.set(false); // Desactivar el loading siempre
     }
   }
 
-  private showError(message: string) {
-    this.snackBar.open(message, 'Cerrar', { duration: 3000 });
+  private showError(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 5000, // 5 segundos para errores (más tiempo para leer)
+      panelClass: ['error-snackbar'], // Clase CSS para errores
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+    });
   }
 
-  private showSuccess(message: string) {
-    this.snackBar.open(message, 'OK', { duration: 3000 });
+  private showSuccess(message: string): void {
+    this.snackBar.open(message, '✓ OK', {
+      // Agregar icono de check
+      duration: 3000, // 3 segundos para éxito
+      panelClass: ['success-snackbar'], // Clase CSS para éxito
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+    });
   }
 }

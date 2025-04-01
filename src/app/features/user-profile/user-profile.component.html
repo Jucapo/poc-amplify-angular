@@ -1,137 +1,144 @@
 <div class="profile-container">
   <h2>Mi Perfil</h2>
-  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-    <!-- Sección de Información Personal -->
-    <fieldset class="form-section">
-      <legend>Información Personal</legend>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="firstName">Nombre:</label>
-          <input
-            type="text"
-            id="firstName"
-            formControlName="firstName"
-            required
-          />
-          @if (
-            profileForm.get("firstName")?.invalid &&
-            profileForm.get("firstName")?.touched
-          ) {
-            <div class="error-message">Nombre es requerido</div>
-          }
-        </div>
-
-        <div class="form-group">
-          <label for="lastName">Apellido:</label>
-          <input
-            type="text"
-            id="lastName"
-            formControlName="lastName"
-            required
-          />
-          @if (
-            profileForm.get("lastName")?.invalid &&
-            profileForm.get("lastName")?.touched
-          ) {
-            <div class="error-message">Apellido es requerido</div>
-          }
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="phone">Teléfono:</label>
-        <input type="tel" id="phone" formControlName="phone" required />
-        @if (
-          profileForm.get("phone")?.invalid && profileForm.get("phone")?.touched
-        ) {
-          <div class="error-message">Teléfono es requerido</div>
-        }
-      </div>
-    </fieldset>
-
-    <!-- Sección de Dirección -->
-    <fieldset class="form-section">
-      <legend>Dirección</legend>
-      <div class="form-group">
-        <label for="address">Dirección:</label>
-        <input type="text" id="address" formControlName="address" required />
-        @if (
-          profileForm.get("address")?.invalid &&
-          profileForm.get("address")?.touched
-        ) {
-          <div class="error-message">Dirección es requerida</div>
-        }
-      </div>
-    </fieldset>
-
-    <!-- Sección de Información Adicional -->
-    <fieldset class="form-section">
-      <legend>Información Adicional</legend>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="birthDate">Fecha de Nacimiento:</label>
-          <input
-            type="date"
-            id="birthDate"
-            formControlName="birthDate"
-            required
-          />
-          @if (
-            profileForm.get("birthDate")?.invalid &&
-            profileForm.get("birthDate")?.touched
-          ) {
-            <div class="error-message">Fecha de nacimiento es requerida</div>
-          }
-        </div>
-
-        <div class="form-group">
-          <label for="gender">Género:</label>
-          <select id="gender" formControlName="gender" required>
-            <option value="">Seleccionar</option>
-            <option value="masculino">Masculino</option>
-            <option value="femenino">Femenino</option>
-            <option value="otro">Otro</option>
-            <option value="prefiero-no-decir">Prefiero no decir</option>
-          </select>
-          @if (
-            profileForm.get("gender")?.invalid &&
-            profileForm.get("gender")?.touched
-          ) {
-            <div class="error-message">Género es requerido</div>
-          }
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="occupation">Ocupación:</label>
-        <input
-          type="text"
-          id="occupation"
-          formControlName="occupation"
-          required
-        />
-        @if (
-          profileForm.get("occupation")?.invalid &&
-          profileForm.get("occupation")?.touched
-        ) {
-          <div class="error-message">Ocupación es requerida</div>
-        }
-      </div>
-    </fieldset>
-
-    <div class="form-actions">
-      <button type="submit" [disabled]="!profileForm.valid || loading()">
-        @if (loading()) {
-          <span class="loading-text">
-            <span class="spinner"></span>
-            Guardando...
-          </span>
-        } @else {
-          <span>Guardar Perfil</span>
-        }
-      </button>
+  @if (loadingInitialData()) {
+    <div class="loading-overlay">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Cargando perfil...</p>
     </div>
-  </form>
+  } @else {
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <!-- Sección de Información Personal -->
+      <fieldset class="form-section">
+        <legend>Información Personal</legend>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Nombre:</label>
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              required
+            />
+            @if (
+              profileForm.get("firstName")?.invalid &&
+              profileForm.get("firstName")?.touched
+            ) {
+              <div class="error-message">Nombre es requerido</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Apellido:</label>
+            <input
+              type="text"
+              id="lastName"
+              formControlName="lastName"
+              required
+            />
+            @if (
+              profileForm.get("lastName")?.invalid &&
+              profileForm.get("lastName")?.touched
+            ) {
+              <div class="error-message">Apellido es requerido</div>
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Teléfono:</label>
+          <input type="tel" id="phone" formControlName="phone" required />
+          @if (
+            profileForm.get("phone")?.invalid &&
+            profileForm.get("phone")?.touched
+          ) {
+            <div class="error-message">Teléfono es requerido</div>
+          }
+        </div>
+      </fieldset>
+
+      <!-- Sección de Dirección -->
+      <fieldset class="form-section">
+        <legend>Dirección</legend>
+        <div class="form-group">
+          <label for="address">Dirección:</label>
+          <input type="text" id="address" formControlName="address" required />
+          @if (
+            profileForm.get("address")?.invalid &&
+            profileForm.get("address")?.touched
+          ) {
+            <div class="error-message">Dirección es requerida</div>
+          }
+        </div>
+      </fieldset>
+
+      <!-- Sección de Información Adicional -->
+      <fieldset class="form-section">
+        <legend>Información Adicional</legend>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="birthDate">Fecha de Nacimiento:</label>
+            <input
+              type="date"
+              id="birthDate"
+              formControlName="birthDate"
+              required
+            />
+            @if (
+              profileForm.get("birthDate")?.invalid &&
+              profileForm.get("birthDate")?.touched
+            ) {
+              <div class="error-message">Fecha de nacimiento es requerida</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Género:</label>
+            <select id="gender" formControlName="gender" required>
+              <option value="">Seleccionar</option>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
+              <option value="otro">Otro</option>
+              <option value="prefiero-no-decir">Prefiero no decir</option>
+            </select>
+            @if (
+              profileForm.get("gender")?.invalid &&
+              profileForm.get("gender")?.touched
+            ) {
+              <div class="error-message">Género es requerido</div>
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="occupation">Ocupación:</label>
+          <input
+            type="text"
+            id="occupation"
+            formControlName="occupation"
+            required
+          />
+          @if (
+            profileForm.get("occupation")?.invalid &&
+            profileForm.get("occupation")?.touched
+          ) {
+            <div class="error-message">Ocupación es requerida</div>
+          }
+        </div>
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="!profileForm.valid || loading()">
+          @if (loading()) {
+            <mat-spinner diameter="20" class="spinner"></mat-spinner>
+            <span class="loading-text">Guardando...</span>
+          } @else {
+            <span>Guardar Perfil</span>
+          }
+        </button>
+      </div>
+    </form>
+  }
 </div>
