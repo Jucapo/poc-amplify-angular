@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UserDataService } from '../../core/services/user-data.service';
 import { AuthService } from '../../core/services/auth.service';
 import { UserData, UpdateUserDataInput } from '../../models/API';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-user-profile',
@@ -22,6 +23,7 @@ import { UserData, UpdateUserDataInput } from '../../models/API';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatIconModule,
   ],
 })
 export class UserProfileComponent {
@@ -113,20 +115,19 @@ export class UserProfileComponent {
     }
   }
 
-  private showError(message: string): void {
-    this.snackBar.open(message, 'Cerrar', {
-      duration: 5000, // 5 segundos para errores (más tiempo para leer)
-      panelClass: ['error-snackbar'], // Clase CSS para errores
+  private showSuccess(message: string): void {
+    this.snackBar.open(message, 'X', {
+      duration: 3000,
+      panelClass: ['success-snackbar'],
       horizontalPosition: 'end',
       verticalPosition: 'top',
     });
   }
 
-  private showSuccess(message: string): void {
-    this.snackBar.open(message, '✓ OK', {
-      // Agregar icono de check
-      duration: 3000, // 3 segundos para éxito
-      panelClass: ['success-snackbar'], // Clase CSS para éxito
+  private showError(message: string): void {
+    this.snackBar.open(message, 'X', {
+      duration: 5000,
+      panelClass: ['error-snackbar'],
       horizontalPosition: 'end',
       verticalPosition: 'top',
     });
